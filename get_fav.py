@@ -12,7 +12,6 @@ import sys
 from get_new import get_new
 from search_nzb import search_nzbsites
 from font_colors import font_colors
-#TODO: check filenames, they may contain
 
 #name of config file where all keys get stored
 config_file = 'get_fav.cfg'
