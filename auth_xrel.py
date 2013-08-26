@@ -10,6 +10,10 @@ import json
 
 #name of config file where all keys get stored
 config_file = 'get_fav.cfg'
+config_path = os.path.expanduser('~/.get_fav')
+if not os.path.exists(config_path):
+	os.makedirs(config_path)
+config_file = os.path.join(config_path, config_file)
 
 consumer_key = 'c91e10ef6f2456ea34a0d811ee94c9da84f'
 consumer_secret = '0oMWS3lnYcwpTx6ReBwyoXOxeiJCzhqnDY1hbl44Q8lzB2pUm18H9glbi7EE'
