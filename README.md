@@ -14,8 +14,25 @@ Unfortunately the xRel-Api does not allow to mark individual releases as read (,
 Please let me know if there are any sites which should be added. An Search-Api (json, xml/rss) providing nzb-links is mandatory.
 Usage
 -----
+On first run you are asked to authenticate to xRel.to using OAuth2 (no need to enter your password in this application).
+*	run auth_xrel.py one time and sign-in in your webbrowser, the generated keys get stored automatically
+*	run get_fav.py every time you want to download nzbs for your releases, will ask for some api-keys as well
 
-Default directory for the config (get_fav.cfg, stores all Api-keys) and nzb download location is ~/.get_fav. On first run you are asked to authenticate to xRel.to using OAuth2 (no need to enter your password in this application).
+Settings
+--------
+Default directory for the config (get_fav.cfg, stores all Api-keys) and nzb download location is:
+*	~/.get_fav
+
 You can easily create accounts for the other sites if needed and paste their Api-key into the application. Afterwards they are queried until a result is found.
+Uncomment those you don't want or which provide bogus results.
 
-If more than one matching result is found you will get a prompt (silent_dl set to False) or the first result is chosen automatically (silent_dl set to True).
+If more than one matching result is found you will get either a prompt if:
+*	silent_dl is set to False,
+
+or the first result is chosen automatically if:
+*	silent_dl is set to True.
+
+Todo
+----
+*	add more sites
+*	cli for settings, maybe ask at first run
