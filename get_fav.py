@@ -91,6 +91,7 @@ for list_id in decode_x(content[11:-3], 'id'):
 				urllib.urlretrieve(nzb[1], filename)
 				print font_colors.OKGREEN + '\t DL:' + filename + font_colors.ENDC
 			else:
+				#TODO: replace string concant with format strings
 				print font_colors.FAIL + '\t ' + nzb[1] + font_colors.ENDC
 		else:
 			print font_colors.WARNING + '\t' + disk_file[0] + ' already exists' + font_colors.ENDC		

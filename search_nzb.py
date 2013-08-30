@@ -8,6 +8,7 @@ def search_nzb(dirname, rss, silent_dl):
 	#print d
 	entry_count = len(d.entries)
 	if (entry_count == 0):
+		#hack to provide error response of nzbindex without html tags
 		try:
 			print d['feed']['summary'].split('\n')[0][12:-14]
 			print d['feed']['summary'].split('\n')[0][4:-5]
@@ -67,7 +68,7 @@ def search_nzbsites(dirname, silent_dl, config_file):
 			'name':'nzbzombie',
 		}
 		site_list.append(nzbzombie)
-	#for more trustworthy results
+	#for more trustworthy results search for town.ag uploads
 	nzbindex_townag = {
 		'url': 'https://www.nzbindex.com/rss/?q=%s town.ag&max=25&sort=sizedesc&complete=1&hidespam=1&nzblink=1',
 		'name':'nzbindex-townag',
