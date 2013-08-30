@@ -66,25 +66,26 @@ def search_nzbsites(dirname, silent_dl, config_file):
 			'key': config_dict['nzbzombie']['key'],
 			'name':'nzbzombie',
 		}
-		site_list.append(nzbzombie)
 	#for more trustworthy results
 	nzbindex_townag = {
 		'url': 'https://www.nzbindex.com/rss/?q=%s town.ag&max=25&sort=sizedesc&complete=1&hidespam=1&nzblink=1',
 		'name':'nzbindex-townag',
 	}
-	site_list.append(nzbindex_townag)
 	nzbindex = {
 		'url': 'https://www.nzbindex.com/rss/?q=%s&max=25&sort=sizedesc&complete=1&hidespam=1&more=1&nzblink=1',
 		'name':'nzbindex',
 	}
-	site_list.append(nzbindex)
 	if 'nzbplanet' in config_dict:
 		nzbplanet = {
 			'url': 'http://www.nzbplanet.net/api?apikey=%s&t=search&q=%s',
 			'key': config_dict['nzbplanet']['key'],
 			'name':'nzbplanet',
 		}
+		#order in list equals search order
 		site_list.append(nzbplanet)
+		site_list.append(nzbindex_townag)
+		site_list.append(nzbindex)
+		site_list.append(nzbzombie)
 
 	for site in site_list:
 		if 'key' in site:
