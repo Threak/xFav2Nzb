@@ -44,13 +44,13 @@ def search_nzbsites(dirname, silent_dl, config_file):
 		config_dict = json.loads(f.read())
 	
 	config_changed = False
-	if not 'nzbzombie' in config_dict:
+	if not silent_dl and not 'nzbzombie' in config_dict:
 		user_input = raw_input('Enter your >nzbzombie< api key (or leave blank), ' +
 			'visit:\nhttp://www.nzbzombie.com/api?t=register&email=%s@%s.de to register a new one:' % (random.randint(10,99), random.randint(10,99), ) )
 		if user_input:
 			config_dict['nzbzombie'] = {'key': user_input}
 			config_changed = True
-	if not 'nzbplanet' in config_dict:
+	if not silent_dl and not 'nzbplanet' in config_dict:
 		user_input = raw_input('Enter your >nzbplanet< api key (or leave blank), ' + 
 			'visit:\nhttp://www.nzbplanet.net/api?t=register&email=%s@%s.de to register a new one:' % (random.randint(10,99), random.randint(10,99), ) )
 		if user_input:
@@ -66,26 +66,25 @@ def search_nzbsites(dirname, silent_dl, config_file):
 			'key': config_dict['nzbzombie']['key'],
 			'name':'nzbzombie',
 		}
+		site_list.append(nzbzombie)
 	#for more trustworthy results
 	nzbindex_townag = {
 		'url': 'https://www.nzbindex.com/rss/?q=%s town.ag&max=25&sort=sizedesc&complete=1&hidespam=1&nzblink=1',
 		'name':'nzbindex-townag',
 	}
+	site_list.append(nzbindex_townag)
 	nzbindex = {
 		'url': 'https://www.nzbindex.com/rss/?q=%s&max=25&sort=sizedesc&complete=1&hidespam=1&more=1&nzblink=1',
 		'name':'nzbindex',
 	}
+	site_list.append(nzbindex)
 	if 'nzbplanet' in config_dict:
 		nzbplanet = {
 			'url': 'http://www.nzbplanet.net/api?apikey=%s&t=search&q=%s',
 			'key': config_dict['nzbplanet']['key'],
 			'name':'nzbplanet',
 		}
-		#order in list equals search order
 		site_list.append(nzbplanet)
-		site_list.append(nzbindex_townag)
-		site_list.append(nzbindex)
-		site_list.append(nzbzombie)
 
 	for site in site_list:
 		if 'key' in site:

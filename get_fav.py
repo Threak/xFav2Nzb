@@ -13,6 +13,9 @@ from get_new import get_new
 from search_nzb import search_nzbsites
 from font_colors import font_colors
 
+#if true, choose first nzb if several found
+silent_dl = True
+
 #name of config file where all keys get stored
 config_file = 'get_fav.cfg'
 config_path = os.path.expanduser('~/.get_fav')
@@ -51,9 +54,6 @@ consumer_secret = config_xrel['consumer_secret']
 
 oauth_token = config_xrel['oauth_token']
 oauth_token_secret = config_xrel['oauth_token_secret']
-
-#if true, choose first nzb if several found
-silent_dl = True
 
 url = "http://api.xrel.to/api/favs/lists.json"
 
