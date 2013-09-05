@@ -67,7 +67,7 @@ def search_nzbsites(dirname, silent_dl, config_file):
 			'key': config_dict['nzbzombie']['key'],
 			'name':'nzbzombie',
 		}
-		site_list.append(nzbzombie)
+		#site_list.append(nzbzombie)
 	#for more trustworthy results search for town.ag uploads
 	nzbindex_townag = {
 		'url': 'https://www.nzbindex.com/rss/?q=%s town.ag&max=25&sort=sizedesc&complete=1&hidespam=1&nzblink=1',
