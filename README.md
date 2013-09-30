@@ -31,11 +31,10 @@ If more than one matching result is found you will get either a prompt if:
 
 or the first result is chosen automatically if:
 *	silent_dl is set to True.
-*	
 
 NFO-Downloading
 ---------------
-It is now possible to batch download missing nfo files. Two modus operanti are available:
+It is now possible to batch download missing nfo files. Two modus operandi are available:
 
 *	get_nfo.py is called wihtout arguments
 	*	it will search for media files in the current directory based on their extension (.avi, .mkv, .iso)
