@@ -31,6 +31,17 @@ If more than one matching result is found you will get either a prompt if:
 
 or the first result is chosen automatically if:
 *	silent_dl is set to True.
+*	
+
+NFO-Downloading
+---------------
+It is now possible to batch download missing nfo files. Two modus operanti are available:
+
+*	get_nfo.py is called wihtout arguments
+	*	it will search for media files in the current directory based on their extension (.avi, .mkv, .iso)
+	*	names of matching files are used to search and retrieve their nfos
+*	get_nfo.py is called directly with a space seperated list of dir names
+*	*	e.g. get_nfo.py my.super.rel.2042.4000p.bluray.x264-platin your.crap.rel.1990.480p.tv.x264-wood
 
 Todo
 ----
