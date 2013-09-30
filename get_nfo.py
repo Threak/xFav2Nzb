@@ -18,8 +18,6 @@ def get_from(source, release):
 		end = html.find('.nfo', start)
 		nfo = 'http://www.srrdb.com%s' % html[start:end+4]
 		return nfo
-		
-		
 
 def get_nfos(release_list):
 	nfo_urls = []
@@ -28,12 +26,9 @@ def get_nfos(release_list):
 		if nfo:
 			nfo_urls.append(nfo)
 	if nfo_urls:
-		cmd = 'wget -N %s' % " ".join(nfo_urls)
+		cmd = 'wget -N -nv %s' % " ".join(nfo_urls)
 		#print cmd
 		os.system(cmd)
-		
-
-
 
 filetypes = ['.mkv', '.avi', '.mp4', '.iso']
 if len(sys.argv) >= 2:
