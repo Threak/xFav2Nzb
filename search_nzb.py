@@ -114,6 +114,3 @@ def open_json(full):
 		exit(-1)
 
 	return fav_dict[0]
-
-#config_file = 'get_fav.cfg'
-#print search_nzbsites('DmC.Devil.may.Cry-RELOADED', False, config_file)
