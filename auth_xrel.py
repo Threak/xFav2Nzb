@@ -7,6 +7,7 @@ import urllib
 import oauth2 as oauth
 import time
 import json
+import os.path
 
 #name of config file where all keys get stored
 config_file = 'get_fav.cfg'
@@ -88,4 +89,4 @@ xrel_dict = {
 full_config = {'xrel': xrel_dict}
 
 with open(config_file, 'w') as f:
-	f.write(json.dumps(full_config), indent=2)
+	f.write(json.dumps(full_config, indent=2))
