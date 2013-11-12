@@ -25,7 +25,7 @@ def search_nzb(dirname, rss, silent_dl):
 			i = i+1
 		user_input = '0'		
 		if not silent_dl:
-			user_input = raw_input('found ' + str(i) + ' entries, choose which one to dl: ')
+			user_input = raw_input('found %d entries, choose which one to dl: ' % i)
 		if not user_input:
 			return [3, 'skipping ' + dirname + ' for now']
 		entry = int(user_input)

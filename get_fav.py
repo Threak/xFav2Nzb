@@ -46,6 +46,20 @@ except IOError:
 
 #for key in config_dict:
 #	print '%s: %s' % (key, config_dict[key], )
+skip_lists = []
+try:
+	skip_lists = config_dict['skip_lists']
+except KeyError:
+	config_dict['skip_lists'] = []
+	while True:
+		user_input = raw_input('Skip which lists:')
+		if user_input == '':
+			break
+		else:
+			skip_lists.append(user_input)
+			config_dict['skip_lists'].append(user_input)
+	with open(config_file, 'w') as f:
+		f.write(json.dumps(config_dict, indent=2))
 
 config_xrel = config_dict['xrel']
 
@@ -68,6 +82,8 @@ resp, content = client.request(url)
 
 names = decode_x(content[11:-3], 'name')
 for name in names:
+	if name in skip_lists:
+		continue
 	new_dir = os.path.join(nzb_path, name)
 	#print new_dir
 	if not os.path.exists(new_dir):
@@ -75,6 +91,9 @@ for name in names:
 
 i = 0;
 for list_id in decode_x(content[11:-3], 'id'):
+	if names[i] in skip_lists:
+		i += 1
+		continue
 	print font_colors.HEADER + names[i] + font_colors.ENDC
 	#print list_id
 	for dirname in get_new(list_id, config_file):
