@@ -2,20 +2,28 @@ import urllib2
 import json
 import feedparser
 import random
+import time
 
 def search_nzb(dirname, rss, silent_dl):
-	d = feedparser.parse(rss.replace(' ', '%20'))
+	rss = rss.replace(' ', '%20')
+	d = feedparser.parse(rss)
 	#print d
 	entry_count = len(d.entries)
-	if (entry_count == 0):
-		#hack to provide error response of nzbindex without html tags
-		try:
-			print d['feed']['summary'].split('\n')[0][12:-14]
-			print d['feed']['summary'].split('\n')[0][4:-5]
-		except:
-			pass
-		return [1,'nothing found for: ' + dirname]
-	
+	retries = 0
+	while (entry_count == 0 and retries < 10):
+		if d['status'] != 503:
+			try:
+				print '>>>> %s <<<<' % d['feed']['error']['description']
+			except:
+				print '>>>> Error not 503 <<<<'
+			break
+		else:
+			print '>>>> Error 503: retrying <<<<'
+		retries += 1
+		d = feedparser.parse(rss)
+		entry_count = len(d.entries)
+		time.sleep(.1 * retries)
+
 	if (entry_count > 1):
 		#user_input = -1
 		#while ((user_input >= 0) & (user_input < entry_count)):
@@ -31,6 +39,7 @@ def search_nzb(dirname, rss, silent_dl):
 		entry = int(user_input)
 	else:
 		entry = 0
+		return [1,'nothing found for: ' + dirname]
 		
 	e = d.entries[entry]
 	
