@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 class font_colors:
 	HEADER = '\033[95m'
 	OKBLUE = '\033[94m'
