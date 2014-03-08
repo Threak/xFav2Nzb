@@ -33,7 +33,7 @@ def search_nzb(dirname, rss, silent_dl):
 		password_free = []
 		for e in d.entries:
 			if 'wachtwoord' in e.summary_detail.value:
-				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + font_colors.OKBLUE + '(PW) ' + font_colors.ENDC + e.title
+				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + font_colors.f_cyan + '(PW) ' + font_colors.f_reset + e.title
 			else:
 				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + e.title
 				password_free.append(i)
