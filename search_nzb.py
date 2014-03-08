@@ -4,6 +4,8 @@ import feedparser
 import random
 import time
 
+from font_colors import font_colors
+
 def search_nzb(dirname, rss, silent_dl):
 	rss = rss.replace(' ', '%20')
 	d = feedparser.parse(rss)
@@ -28,10 +30,15 @@ def search_nzb(dirname, rss, silent_dl):
 		#user_input = -1
 		#while ((user_input >= 0) & (user_input < entry_count)):
 		i = 0
+		password_free = []
 		for e in d.entries:
-			print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + e.title
+			if 'wachtwoord' in e.summary_detail.value:
+				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + font_colors.OKBLUE + '(PW) ' + font_colors.ENDC + e.title
+			else:
+				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + e.title
+				password_free.append(i)
 			i = i+1
-		user_input = '0'		
+		user_input = password_free[0]
 		if not silent_dl:
 			user_input = raw_input('found %d entries, choose which one to dl: ' % i)
 		if not user_input:
