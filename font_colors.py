@@ -11,11 +11,12 @@ class font_colors:
     
     ENDC = '\033[0m'
 
-#def test_colors():
-	#print font_colors.HEADER + 'HEADER' + font_colors.ENDC
-	#print font_colors.OKBLUE + 'OKBLUE' + font_colors.ENDC
-	#print font_colors.OKGREEN + 'OKGREEN' + font_colors.ENDC
-	#print font_colors.WARNING + 'WARNING' + font_colors.ENDC
-	#print font_colors.FAIL + 'FAIL' + font_colors.ENDC
+def test_colors():
+	print font_colors.HEADER + 'HEADER' + font_colors.ENDC
+	print font_colors.OKBLUE + 'OKBLUE' + font_colors.ENDC
+	print font_colors.OKGREEN + 'OKGREEN' + font_colors.ENDC
+	print font_colors.WARNING + 'WARNING' + font_colors.ENDC
+	print font_colors.FAIL + 'FAIL' + font_colors.ENDC
 
-#test_colors()
+if __name__ == '__main__':
+    test_colors()
