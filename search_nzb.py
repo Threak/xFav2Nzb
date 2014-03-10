@@ -13,10 +13,13 @@ def search_nzb(dirname, rss, silent_dl):
 	entry_count = len(d.entries)
 	retries = 0
 	while (entry_count == 0 and retries < 10):
+		# some site returns way too often 503 for their feed
 		if d['status'] != 503:
 			try:
+				# print error description if available
 				print '>>>> %s <<<<' % d['feed']['error']['description']
 			except:
+				# otherwise print unknown error
 				print '>>>> Error not 503 <<<<'
 			break
 		else:
@@ -24,6 +27,7 @@ def search_nzb(dirname, rss, silent_dl):
 		retries += 1
 		d = feedparser.parse(rss)
 		entry_count = len(d.entries)
+		# wait longer after each retry
 		time.sleep(.1 * retries)
 
 	if (entry_count > 1):
@@ -32,18 +36,21 @@ def search_nzb(dirname, rss, silent_dl):
 		i = 0
 		password_free = []
 		for e in d.entries:
+			# check if files are password protected and warn user
 			if 'wachtwoord' in e.summary_detail.value:
 				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + font_colors.f_cyan + '(PW) ' + font_colors.f_reset + e.title
 			else:
 				print str(i) + '. ' + str(int(e.enclosures[0]['length'])/1024/1024) + ' Mb' + ': ' + e.title
 				password_free.append(i)
 			i = i+1
+		# choose first password free entry as default
 		user_input = password_free[0]
 		if not silent_dl:
-			user_input = raw_input('found %d entries, choose which one to dl: ' % i)
-		if not user_input:
-			return [3, 'skipping ' + dirname + ' for now']
-		entry = int(user_input)
+			user_input = int(raw_input('found %d entries, choose which one to dl: ' % i))
+			# skip nzb if user enters nothing
+			if not user_input:
+				return [3, 'skipping ' + dirname + ' for now']
+		entry = user_input
 	else:
 		entry = 0
 		return [1,'nothing found for: ' + dirname]
