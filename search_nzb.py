@@ -14,7 +14,7 @@ def search_nzb(dirname, rss, silent_dl):
 	retries = 0
 	while (entry_count == 0 and retries < 10):
 		# some site returns way too often 503 for their feed
-		if d['status'] != 503:
+		if d.get('status') != 503:
 			try:
 				# print error description if available
 				print '>>>> %s <<<<' % d['feed']['error']['description']
@@ -29,8 +29,8 @@ def search_nzb(dirname, rss, silent_dl):
 		entry_count = len(d.entries)
 		# wait longer after each retry
 		time.sleep(.1 * retries)
-
-	if (entry_count > 1):
+	
+	if (entry_count > 0):
 		#user_input = -1
 		#while ((user_input >= 0) & (user_input < entry_count)):
 		i = 0
@@ -45,14 +45,13 @@ def search_nzb(dirname, rss, silent_dl):
 			i = i+1
 		# choose first password free entry as default
 		user_input = password_free[0]
-		if not silent_dl:
+		if (not silent_dl) and (entry_count > 1):
 			user_input = int(raw_input('found %d entries, choose which one to dl: ' % i))
 			# skip nzb if user enters nothing
 			if not user_input:
 				return [3, 'skipping ' + dirname + ' for now']
 		entry = user_input
 	else:
-		entry = 0
 		return [1,'nothing found for: ' + dirname]
 		
 	e = d.entries[entry]
@@ -86,7 +85,7 @@ def search_nzbsites(dirname, silent_dl, config_file):
 
 	if 'nzbzombie' in config_dict:
 		nzbzombie = {
-			'url': 'http://www.nzbzombie.com/api?apikey=%s&t=search&q=%s',
+			'url': 'https://www.nzbndx/api?apikey=%s&t=search&q=%s',
 			'key': config_dict['nzbzombie']['key'],
 			'name':'nzbzombie',
 		}
